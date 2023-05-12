@@ -14,6 +14,8 @@ def grayscale_image(request):
     image_file = request.FILES['image']
     # Open the uploaded image
     image = Image.open(image_file)
+    if image.mode != 'RGB':
+        image = image.convert('RGB')
     filename = str(uuid.uuid4()) + '.jpg'
     path = os.path.join(settings.MEDIA_ROOT, 'images', filename)
     image.save(path)
